@@ -1,0 +1,197 @@
+{
+  "name": "gitlab-registry-explorer",
+  "displayName": "GitLab Registry Explorer",
+  "description": "Browse, pull, and scan GitLab Container Registry images from VSCode",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/amromran102/gitlab-registry-explorer.git"
+  },  
+  "publisher": "amromran102",
+  "author": {
+    "name": "Amr Omran",
+    "email": "amressam34.d@gmail.com"
+  },  
+  "engines": {
+    "vscode": "^1.80.0"
+  },
+  "main": "./dist/extension.js",
+  "icon": "media/extension.png",
+  "activationEvents": [
+    "onView:gitlabRegistryExplorer"
+  ],  
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "gitlabRegistryExplorer",
+          "title": "GitLab Registry",
+          "icon": "media/activitybar.png"
+        }
+      ]
+    },
+    "views": {
+      "gitlabRegistryExplorer": [
+        {
+          "id": "gitlabRegistryExplorer",
+          "name": "Projects"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "gitlabRegistryExplorer.setToken",
+        "title": "GitLab Registry Explorer: Set GitLab Token"
+      },
+      {
+        "command": "gitlabRegistryExplorer.refresh",
+        "title": "GitLab Registry Explorer: Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.searchProjects",
+        "title": "GitLab Registry Explorer: Search Projects",
+        "icon": "$(search)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.clearFilters",
+        "title": "GitLab Registry Explorer: Clear Filters",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.clearTagFilter",
+        "title": "GitLab Registry Explorer: Clear Tag Filter",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.copyImageUrl",
+        "title": "Copy Image URL",
+        "icon": "$(copy)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.executeDockerPull",
+        "title": "Docker Pull",
+        "icon": "$(arrow-down)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.scanImageWithTrivy",
+        "title": "Scan Image with Trivy",
+        "icon": "$(bug)"
+      },
+      {
+        "command": "gitlabRegistryExplorer.showAllTags",
+        "title": "Show All Tags",
+        "icon": "$(expand-all)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "gitlabRegistryExplorer.refresh",
+          "when": "view == gitlabRegistryExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "gitlabRegistryExplorer.searchProjects",
+          "when": "view == gitlabRegistryExplorer",
+          "group": "navigation"
+        },
+        {
+          "command": "gitlabRegistryExplorer.clearFilters",
+          "when": "view == gitlabRegistryExplorer",
+          "group": "navigation"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "gitlabRegistryExplorer.copyImageUrl",
+          "when": "view == gitlabRegistryExplorer && viewItem == tag",
+          "group": "inline@1"
+        },
+        {
+          "command": "gitlabRegistryExplorer.executeDockerPull",
+          "when": "view == gitlabRegistryExplorer && viewItem == tag",
+          "group": "inline@2"
+        },
+        {
+          "command": "gitlabRegistryExplorer.scanImageWithTrivy",
+          "when": "view == gitlabRegistryExplorer && viewItem == tag",
+          "group": "inline@3"
+        },
+        {
+          "command": "gitlabRegistryExplorer.clearTagFilter",
+          "when": "view == gitlabRegistryExplorer && viewItem == filterWithClear",
+          "group": "inline@1"
+        },
+        {
+          "command": "gitlabRegistryExplorer.showAllTags",
+          "when": "view == gitlabRegistryExplorer && viewItem == showAllTags",
+          "group": "inline@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "gitlabRegistryExplorer.clearTagFilter",
+          "when": "false"
+        },
+        {
+          "command": "gitlabRegistryExplorer.copyImageUrl",
+          "when": "false"
+        },
+        {
+          "command": "gitlabRegistryExplorer.executeDockerPull",
+          "when": "false"
+        },
+        {
+          "command": "gitlabRegistryExplorer.scanImageWithTrivy",
+          "when": "false"
+        },
+        {
+          "command": "gitlabRegistryExplorer.showAllTags",
+          "when": "false"
+        },
+        {
+          "command": "gitlabRegistryExplorer.setToken",
+          "when": "true"
+        },
+        {
+          "command": "gitlabRegistryExplorer.refresh",
+          "when": "true"
+        },
+        {
+          "command": "gitlabRegistryExplorer.searchProjects",
+          "when": "true"
+        },
+        {
+          "command": "gitlabRegistryExplorer.clearFilters",
+          "when": "true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "GitLab Registry Explorer",
+      "properties": {
+        "gitlabRegistryExplorer.maxTagsToDisplay": {
+          "type": "number",
+          "default": 20,
+          "description": "The maximum number of tags to display initially for each repository. Set to a higher value (e.g., 50) to show more tags by default."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -watch -p .",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.12",
+    "@types/vscode": "^1.80.0",
+    "typescript": "^5.0.0",
+    "vsce": "^2.15.0"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  }
+}

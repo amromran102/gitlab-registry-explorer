@@ -1,0 +1,23 @@
+# Node.js dependencies
+node_modules/
+
+# VS Code extension package
+*.vsix
+
+# Build output
+dist/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+test/
+
+# Mac system files
+.DS_Store
+
+# VSCode workspace settings
+.vscode/
