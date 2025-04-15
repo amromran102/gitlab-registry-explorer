@@ -2,7 +2,7 @@
   "name": "gitlab-registry-explorer",
   "displayName": "GitLab Registry Explorer",
   "description": "Browse, pull, and scan GitLab Container Registry images from VSCode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
   "repository": {
       "type": "git",
