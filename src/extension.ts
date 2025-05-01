@@ -318,7 +318,7 @@ class GitLabRegistryProvider implements vscode.TreeDataProvider<TreeItemWithCont
 
             // Map the filtered tags to tree items
             const tagItems = tagsToShow.map(tag => {
-                const imageUrl = `registry.gitlab.com/${project?.path_with_namespace}:${tag.name}`;
+                const imageUrl = `registry.gitlab.com/${repoPath}:${tag.name}`;
                 const label = `${tag.name}  —  ${tag.created_at ? new Date(tag.created_at).toLocaleString() : 'unknown date'} (${formatBytes(tag.total_size)})`;
                 return new TreeItemWithContext(
                     label,
